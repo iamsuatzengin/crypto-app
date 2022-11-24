@@ -3,12 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/drawable/coins_item_bg.xml" value="0.2505" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/drawable/coins_item_bg_decrease.xml" value="0.228" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/drawable/ic_home.xml" value="0.228" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/drawable/ic_market.xml" value="0.228" />
         <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/drawable/rounded_background.xml" value="0.185" />
         <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/coin_list_item.xml" value="0.33" />
-        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/content_main.xml" value="0.18" />
         <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/fragment_first.xml" value="0.2006340579710145" />
-        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/fragment_home.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/fragment_second.xml" value="0.178125" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/layout/trending_coins_item.xml" value="0.33" />
+        <entry key="..\:/Users/suatz/AndroidStudioProjects/WhatAboutCrypto/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

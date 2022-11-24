@@ -5,18 +5,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.suatzengin.whataboutcrypto.data.remote.dto.CoinItem
 
-class HomeRecyclerAdapter: ListAdapter<CoinItem, HomeViewHolder>(DiffCallBack){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder.from(parent)
+class CoinsRecyclerAdapter : ListAdapter<CoinItem, CoinsViewHolder>(DiffCallBack) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsViewHolder {
+        return CoinsViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CoinsViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
 
-
-    companion object DiffCallBack: DiffUtil.ItemCallback<CoinItem>(){
+    companion object DiffCallBack : DiffUtil.ItemCallback<CoinItem>() {
         override fun areItemsTheSame(oldItem: CoinItem, newItem: CoinItem): Boolean {
             return oldItem == newItem
         }
