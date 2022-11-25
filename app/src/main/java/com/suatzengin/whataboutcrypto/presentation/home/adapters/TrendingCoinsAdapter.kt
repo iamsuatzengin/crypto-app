@@ -1,9 +1,9 @@
-package com.suatzengin.whataboutcrypto.presentation.home
+package com.suatzengin.whataboutcrypto.presentation.home.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.suatzengin.whataboutcrypto.data.remote.dto.TrendingCoin
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.TrendingCoin
 
 
 class TrendingCoinsAdapter :

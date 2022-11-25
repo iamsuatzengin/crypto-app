@@ -18,7 +18,7 @@
         tools:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Crypto Icon" />
+        android:contentDescription="@string/crypto_icon" />
 
     <TextView
         android:id="@+id/tvCoinName"
@@ -28,7 +28,7 @@
         android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="Bitcoin"
+        tools:text="Bitcoin"
         app:layout_constraintStart_toEndOf="@id/coinImage"
         app:layout_constraintTop_toTopOf="@id/coinImage" />
 
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="BTC"
+        tools:text="BTC"
         app:layout_constraintStart_toEndOf="@id/coinImage"
         app:layout_constraintTop_toBottomOf="@id/tvCoinName" />
 
@@ -45,7 +45,7 @@
         android:id="@+id/tvCoinPrice"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="$16469"
+        tools:text="$16469"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/coinImage"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,6 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="+%26" />
+        tools:text="+%26" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

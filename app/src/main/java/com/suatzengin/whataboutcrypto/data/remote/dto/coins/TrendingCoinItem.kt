@@ -1,4 +1,4 @@
-package com.suatzengin.whataboutcrypto.data.remote.dto
+package com.suatzengin.whataboutcrypto.data.remote.dto.coins
 
 import com.google.gson.annotations.SerializedName
 

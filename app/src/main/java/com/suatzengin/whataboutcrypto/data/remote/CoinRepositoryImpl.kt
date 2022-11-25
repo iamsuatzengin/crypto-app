@@ -1,5 +1,6 @@
 package com.suatzengin.whataboutcrypto.data.remote
 
+import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
 import com.suatzengin.whataboutcrypto.domain.model.HomeType
 import com.suatzengin.whataboutcrypto.domain.repository.CoinRepository
 import com.suatzengin.whataboutcrypto.util.Resource
@@ -13,27 +14,36 @@ import javax.inject.Inject
 class CoinRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : CoinRepository {
-    override fun getCoinList(): Flow<Resource<List<HomeType>>> {
 
+    override fun getCoinList(): Flow<Resource<List<HomeType>>> {
         return flow {
             emit(Resource.Loading())
             delay(1000)
             try {
                 val coinList = apiService.getCoinList()
-
                 val trendingCoins = apiService.getTrendingCoins().coins
 
                 val list = listOf(
                     HomeType.CoinList(coinList),
                     HomeType.TrendingCoins(trendingCoins)
                 )
-
                 emit(Resource.Success(list))
             } catch (e: IOException) {
                 emit(Resource.Error(message = "Check your internet connection!"))
             } catch (e: HttpException) {
                 emit(Resource.Error(message = e.localizedMessage ?: "Http Exception"))
             }
+        }
+    }
+
+    override fun getMarketList(): Flow<Resource<List<Exchange>>> = flow {
+        emit(Resource.Loading())
+        delay(1000)
+        try {
+            val marketList = apiService.getMarketList()
+            emit(Resource.Success(marketList))
+        } catch (e: Exception) {
+            emit(Resource.Error(message = e.localizedMessage ?: "An error occurred!"))
         }
     }
 }

@@ -14,6 +14,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.suatzengin.whataboutcrypto.databinding.FragmentHomeBinding
 import com.suatzengin.whataboutcrypto.domain.model.HomeType
 import com.suatzengin.whataboutcrypto.presentation.MainActivity
+import com.suatzengin.whataboutcrypto.presentation.home.adapters.CoinsRecyclerAdapter
+import com.suatzengin.whataboutcrypto.presentation.home.adapters.TrendingCoinsAdapter
+import com.suatzengin.whataboutcrypto.util.UiEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,15 +27,15 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var adapter: CoinsRecyclerAdapter
-    private lateinit var adaperTrending: TrendingCoinsAdapter
+    private lateinit var adapterCoins: CoinsRecyclerAdapter
+    private lateinit var adapterTrending: TrendingCoinsAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).supportActionBar?.title = "Home"
+        (activity as MainActivity).supportActionBar?.hide()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
 
         return binding.root
     }
@@ -43,21 +46,21 @@ class HomeFragment : Fragment() {
         observeData()
     }
 
-    private fun setupRecyclerViews(){
-        adapter = CoinsRecyclerAdapter()
-        adaperTrending = TrendingCoinsAdapter()
-        binding.rvCoinList.adapter = adapter
+    private fun setupRecyclerViews() {
+        adapterCoins = CoinsRecyclerAdapter()
+        adapterTrending = TrendingCoinsAdapter()
+        binding.rvCoinList.adapter = adapterCoins
         val rvTrending = binding.rvTrendingCoins
         rvTrending.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        rvTrending.adapter = adaperTrending
+        rvTrending.adapter = adapterTrending
     }
 
     private fun observeData() {
         lifecycleScope.launchWhenStarted {
             viewModel.eventFlow.collect { event ->
                 when (event) {
-                    is UiEvent.ShowToast -> {
+                    is UiEvent.ShowSnackbar -> {
                         Snackbar.make(
                             requireContext(),
                             binding.layoutId,
@@ -72,21 +75,18 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-
                     state.list.forEach { homeType ->
                         when (homeType) {
                             is HomeType.TrendingCoins -> {
-                                adaperTrending.submitList(homeType.coins)
-
+                                adapterTrending.submitList(homeType.coins)
+                                binding.trendingDescription.visibility = View.VISIBLE
                             }
                             is HomeType.CoinList -> {
-                                adapter.submitList(homeType.coins)
-
+                                adapterCoins.submitList(homeType.coins)
+                                binding.tvRankings.visibility = View.VISIBLE
                             }
-
                         }
                     }
-
                     state.isLoading.let {
                         if (it) binding.progressBar.visibility = View.VISIBLE
                         else binding.progressBar.visibility = View.GONE

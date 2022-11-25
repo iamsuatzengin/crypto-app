@@ -1,9 +1,9 @@
-package com.suatzengin.whataboutcrypto.presentation.home
+package com.suatzengin.whataboutcrypto.presentation.home.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.suatzengin.whataboutcrypto.data.remote.dto.CoinItem
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
 
 class CoinsRecyclerAdapter : ListAdapter<CoinItem, CoinsViewHolder>(DiffCallBack) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsViewHolder {

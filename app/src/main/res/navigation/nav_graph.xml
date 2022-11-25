@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/markets_page"
-        android:name="com.suatzengin.whataboutcrypto.presentation.SecondFragment"
+        android:name="com.suatzengin.whataboutcrypto.presentation.markets.MarketFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_market">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

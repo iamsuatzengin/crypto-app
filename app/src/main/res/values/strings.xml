@@ -9,5 +9,11 @@
     <string name="home_page">Home</string>
     <string name="markets_page">Markets</string>
     <string name="search">Search</string>
+    <string name="trending_description_string">Top-7 trending coins on CoinGecko as searched by users in the last 24 hours.</string>
+    <string name="rankings">Rankings</string>
+    <string name="market_icon">Market\'s icon.</string>
+    <string name="markets">Markets</string>
+    <string name="list_all_exchanges">List all exchanges</string>
+    <string name="crypto_icon">Crypto Icon</string>
 
 </resources>

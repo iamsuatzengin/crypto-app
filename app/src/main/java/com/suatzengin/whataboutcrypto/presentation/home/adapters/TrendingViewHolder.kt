@@ -1,11 +1,11 @@
-package com.suatzengin.whataboutcrypto.presentation.home
+package com.suatzengin.whataboutcrypto.presentation.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.suatzengin.whataboutcrypto.data.remote.dto.TrendingCoin
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.TrendingCoin
 import com.suatzengin.whataboutcrypto.databinding.TrendingCoinsItemBinding
 import com.suatzengin.whataboutcrypto.util.format
 

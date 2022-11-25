@@ -1,4 +1,4 @@
-package com.suatzengin.whataboutcrypto.data.remote.dto
+package com.suatzengin.whataboutcrypto.data.remote.dto.coins
 
 data class Roi(
     val times: Float = 0f,

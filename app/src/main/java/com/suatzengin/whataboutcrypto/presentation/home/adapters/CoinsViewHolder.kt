@@ -1,4 +1,4 @@
-package com.suatzengin.whataboutcrypto.presentation.home
+package com.suatzengin.whataboutcrypto.presentation.home.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.suatzengin.whataboutcrypto.R
-import com.suatzengin.whataboutcrypto.data.remote.dto.CoinItem
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
 import com.suatzengin.whataboutcrypto.databinding.CoinListItemBinding
+import com.suatzengin.whataboutcrypto.util.addPrefix
+import com.suatzengin.whataboutcrypto.util.addSuffix
 import java.util.*
 
 class CoinsViewHolder(
@@ -23,8 +25,8 @@ class CoinsViewHolder(
             }
             tvCoinName.text = item.name
             tvCoinSymbol.text = item.symbol.uppercase(Locale.ROOT)
-            tvCoinPrice.text = "$${item.currentPrice}"
-            tvPercentage.text = "${item.priceChangePercentage24h}%"
+            tvCoinPrice.text = item.currentPrice.toString().addPrefix("$") //custom string extensions
+            tvPercentage.text = item.priceChangePercentage24h.toString().addSuffix("%")
         }
         if (item.priceChangePercentage24h > 0) {
             binding.tvPercentage.setTextColor(

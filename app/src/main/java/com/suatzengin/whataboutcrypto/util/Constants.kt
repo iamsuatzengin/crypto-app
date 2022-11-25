@@ -7,4 +7,5 @@ object Constants {
 
     const val TRENDING_URL = "search/trending"
 
+    const val MARKETS_URL = "exchanges"
 }
