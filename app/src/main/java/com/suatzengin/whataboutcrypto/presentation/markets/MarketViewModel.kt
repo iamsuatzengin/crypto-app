@@ -23,7 +23,7 @@ class MarketViewModel @Inject constructor(
 
     private fun getMarketList() {
         coinRepository.getMarketList().onEach { result ->
-            when(result){
+            when (result) {
                 is Resource.Success -> {
                     _state.update {
                         it.copy(list = result.data ?: emptyList(), isLoading = false)

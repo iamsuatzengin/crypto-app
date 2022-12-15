@@ -8,4 +8,6 @@ object Constants {
     const val TRENDING_URL = "search/trending"
 
     const val MARKETS_URL = "exchanges"
+
+    const val MARKET_CHARTS = "coins/{id}/market_chart"
 }

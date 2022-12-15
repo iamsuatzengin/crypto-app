@@ -1,8 +1,11 @@
 package com.suatzengin.whataboutcrypto.presentation.home
 
-import com.suatzengin.whataboutcrypto.domain.model.HomeType
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.TrendingCoin
+
 
 data class CoinListUiState(
-    val list: List<HomeType> = emptyList(),
+    val coinList: List<CoinItem> = emptyList(),
+    val trendingCoinList: List<TrendingCoin> = emptyList(),
     val isLoading: Boolean = false
 )

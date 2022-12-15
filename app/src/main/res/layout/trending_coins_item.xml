@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="?attr/materialCardViewElevatedStyle"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
+    android:layout_width="175dp"
+    android:layout_height="175dp"
     android:layout_margin="8dp"
     android:elevation="8dp">
 
@@ -20,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
-            />
+            android:contentDescription="@string/trending_coin_icon" />
 
         <TextView
             android:id="@+id/tv_trend_name"
@@ -29,7 +30,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Gains Network"
+            tools:text="Gains Network"
             style="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_trend_icon" />
@@ -39,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Rank:"
+            android:text="@string/rank"
             app:layout_constraintStart_toEndOf="@id/iv_trend_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="205"
+            tools:text="205"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/tv_rank"
             app:layout_constraintTop_toTopOf="@id/tv_rank" />
@@ -57,7 +58,7 @@
             android:id="@+id/tv_price_btc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price BTC:"
+            android:text="@string/price_btc"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_trend_name" />
 
@@ -65,7 +66,7 @@
             android:id="@+id/tv_trend_price_btc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0.00023444973338479844"
+            tools:text="0.00023444973338479844"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_price_btc" />
     </androidx.constraintlayout.widget.ConstraintLayout>

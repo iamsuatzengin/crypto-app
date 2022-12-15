@@ -34,12 +34,13 @@ class MarketFragment : Fragment() {
     ): View? {
         _binding = FragmentMarketBinding.inflate(inflater, container, false)
         (activity as MainActivity).supportActionBar?.hide()
+        setupRecyclerView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+
         observeData()
     }
 
@@ -57,10 +58,9 @@ class MarketFragment : Fragment() {
     private fun observeData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    state.list.let {
-                        adapter.submitList(it)
-                    }
+                viewModel.state.collect{ state ->
+                    adapter.submitList(state.list)
+
                     state.isLoading.let {
                         if (it) binding.progressBarMarket.visibility = View.VISIBLE
                         else binding.progressBarMarket.visibility = View.GONE

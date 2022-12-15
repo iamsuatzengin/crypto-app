@@ -1,10 +1,12 @@
 package com.suatzengin.whataboutcrypto.data.remote
 
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinMarketChart
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.Trending
 import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
 import com.suatzengin.whataboutcrypto.util.Constants
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -17,7 +19,15 @@ interface ApiService {
 
     @GET(Constants.MARKETS_URL)
     suspend fun getMarketList(
-        @Query("per_page") perPage: Int = 50,
-        @Query("page") page: Int = 1
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 50
     ): List<Exchange>
+
+    @GET(Constants.MARKET_CHARTS)
+    suspend fun getMarketCharts(
+        @Path("id") id: String,
+        @Query("vs_currency") vsCurrency: String = "usd",
+        @Query("days") days: Int = 7,
+        @Query("interval") interval: String = "daily"
+    ): CoinMarketChart
 }

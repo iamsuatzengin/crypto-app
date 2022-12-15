@@ -15,5 +15,12 @@
     <string name="markets">Markets</string>
     <string name="list_all_exchanges">List all exchanges</string>
     <string name="crypto_icon">Crypto Icon</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="price_btc">Price BTC:</string>
+    <string name="rank">Rank:</string>
+    <string name="trending_coin_icon">Trending coin icon!</string>
 
 </resources>

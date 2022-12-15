@@ -9,13 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.suatzengin.whataboutcrypto.databinding.FragmentHomeBinding
-import com.suatzengin.whataboutcrypto.domain.model.HomeType
 import com.suatzengin.whataboutcrypto.presentation.MainActivity
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.CoinsRecyclerAdapter
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.TrendingCoinsAdapter
+import com.suatzengin.whataboutcrypto.util.OnClickListener
 import com.suatzengin.whataboutcrypto.util.UiEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,7 +48,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        adapterCoins = CoinsRecyclerAdapter()
+        adapterCoins = CoinsRecyclerAdapter(onClickListener = object : OnClickListener {
+            override fun onItemClick(id: String) {
+                val action = HomeFragmentDirections.actionHomePageToDetailFragment(id)
+                findNavController().navigate(action)
+            }
+        })
         adapterTrending = TrendingCoinsAdapter()
         binding.rvCoinList.adapter = adapterCoins
         val rvTrending = binding.rvTrendingCoins
@@ -57,39 +63,32 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeData() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.eventFlow.collect { event ->
-                when (event) {
-                    is UiEvent.ShowSnackbar -> {
-                        Snackbar.make(
-                            requireContext(),
-                            binding.layoutId,
-                            event.message,
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-        }
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    state.list.forEach { homeType ->
-                        when (homeType) {
-                            is HomeType.TrendingCoins -> {
-                                adapterTrending.submitList(homeType.coins)
-                                binding.trendingDescription.visibility = View.VISIBLE
-                            }
-                            is HomeType.CoinList -> {
-                                adapterCoins.submitList(homeType.coins)
-                                binding.tvRankings.visibility = View.VISIBLE
+                launch {
+                    viewModel.eventFlow.collect { event ->
+                        when (event) {
+                            is UiEvent.ShowSnackbar -> {
+                                Snackbar.make(
+                                    requireContext(),
+                                    binding.layoutId,
+                                    event.message,
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
-                    state.isLoading.let {
-                        if (it) binding.progressBar.visibility = View.VISIBLE
-                        else binding.progressBar.visibility = View.GONE
+                }
+
+                launch {
+                    viewModel.state.collect { state ->
+
+                        adapterCoins.submitList(state.coinList)
+                        adapterTrending.submitList(state.trendingCoinList)
+                        state.isLoading.let {
+                            if (it) binding.progressBar.visibility = View.VISIBLE
+                            else binding.progressBar.visibility = View.GONE
+                        }
                     }
                 }
             }

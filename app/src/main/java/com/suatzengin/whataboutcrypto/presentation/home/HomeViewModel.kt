@@ -3,11 +3,11 @@ package com.suatzengin.whataboutcrypto.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.whataboutcrypto.domain.repository.CoinRepository
-import com.suatzengin.whataboutcrypto.util.Resource
 import com.suatzengin.whataboutcrypto.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,33 +23,44 @@ class HomeViewModel @Inject constructor(
     val eventFlow = _eventChannel.receiveAsFlow()
 
     init {
-        getHomeData()
+        _state.update { it.copy(isLoading = true) }
+        getCoinList()
+        getTrendingCoins()
     }
 
-    private fun getHomeData() {
-        repository.getCoinList().onEach { result ->
-            when (result) {
-                is Resource.Success -> {
+    private fun getCoinList(){
+        viewModelScope.launch {
+            try {
+                repository.getCoins().collect{ list ->
                     _state.update {
-                        it.copy(list = result.data ?: emptyList(), isLoading = false)
+                        it.copy(coinList = list, isLoading = false)
                     }
                 }
-                is Resource.Error -> {
-                    _eventChannel.send(
-                        UiEvent.ShowSnackbar(
-                            message = result.message ?: "Unknown exception!"
-                        )
+            }catch (e: Exception){
+                _eventChannel.send(
+                    UiEvent.ShowSnackbar(
+                        message = e.localizedMessage ?: "Unknown exception!"
                     )
-                }
-                is Resource.Loading -> {
+                )
+            }
+        }
+    }
+
+    private fun getTrendingCoins(){
+        viewModelScope.launch {
+            try {
+                repository.getTrendingCoins().collect{ list ->
                     _state.update {
-                        it.copy(
-                            list = emptyList(),
-                            isLoading = true
-                        )
+                        it.copy(trendingCoinList = list, isLoading = false)
                     }
                 }
+            }catch (e: Exception){
+                _eventChannel.send(
+                    UiEvent.ShowSnackbar(
+                        message = e.localizedMessage ?: "Unknown exception!"
+                    )
+                )
             }
-        }.launchIn(viewModelScope)
+        }
     }
 }

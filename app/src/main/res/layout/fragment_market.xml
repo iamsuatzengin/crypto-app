@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/markets"
-        style="@style/TextAppearance.Material3.TitleLarge"/>
-
-    <TextView
-        android:id="@+id/tvHeaderDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/list_all_exchanges"
-        android:layout_below="@id/tvHeader"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMarket"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvHeaderDesc"
-        android:layout_marginTop="8dp"
-        />
+        android:padding="16dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_bar_market"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminate="true"
-        app:indicatorColor="#9FA8DA"
-        app:trackThickness="20dp"
-        />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvHeader"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/markets" />
+
+        <TextView
+            android:id="@+id/tvHeaderDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvHeader"
+            android:text="@string/list_all_exchanges" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMarket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvHeaderDesc"
+            android:layout_marginTop="8dp" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_bar_market"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="#9FA8DA"
+            app:trackThickness="20dp" />
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+

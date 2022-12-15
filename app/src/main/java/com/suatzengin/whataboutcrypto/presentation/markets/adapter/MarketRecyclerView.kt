@@ -7,6 +7,14 @@ import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
 
 class MarketRecyclerView: ListAdapter<Exchange, MarketViewHolder>(DiffCallBack) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketViewHolder {
+        return MarketViewHolder.from(parent)
+    }
+
+    override fun onBindViewHolder(holder: MarketViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Exchange>(){
         override fun areItemsTheSame(oldItem: Exchange, newItem: Exchange): Boolean {
@@ -19,12 +27,5 @@ class MarketRecyclerView: ListAdapter<Exchange, MarketViewHolder>(DiffCallBack) 
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketViewHolder {
-        return MarketViewHolder.from(parent)
-    }
 
-    override fun onBindViewHolder(holder: MarketViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }
 }
