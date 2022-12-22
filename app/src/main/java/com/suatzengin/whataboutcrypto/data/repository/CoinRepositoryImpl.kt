@@ -6,7 +6,8 @@ import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
 import com.suatzengin.whataboutcrypto.domain.repository.CoinRepository
 import com.suatzengin.whataboutcrypto.util.Resource
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CoinRepositoryImpl @Inject constructor(
@@ -20,10 +21,10 @@ class CoinRepositoryImpl @Inject constructor(
         emit(apiService.getTrendingCoins().coins)
     }
 
-    override fun getMarketChart(id: String): Flow<Resource<CoinMarketChart>> = flow {
+    override fun getMarketChart(id: String, day: Int): Flow<Resource<CoinMarketChart>> = flow {
         emit(Resource.Loading())
         try {
-            val marketCharts = apiService.getMarketCharts(id)
+            val marketCharts = apiService.getMarketCharts(id, days = day)
             emit(Resource.Success(marketCharts))
         }catch (e: Exception){
             emit(Resource.Error(message = e.localizedMessage ?: "An error occurred!"))

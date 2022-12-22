@@ -21,7 +21,7 @@ class CoinsViewHolder(
 
         binding.apply {
             itemLayoutId.setOnClickListener{
-                onClickListener.onItemClick(item.id)
+                onClickListener.onItemClick(item)
             }
 
             coinImage.load(item.image) {

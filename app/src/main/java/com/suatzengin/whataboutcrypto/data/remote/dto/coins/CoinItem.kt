@@ -1,8 +1,10 @@
 package com.suatzengin.whataboutcrypto.data.remote.dto.coins
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class CoinItem(
     val id: String,
     val symbol: String,
@@ -51,4 +53,4 @@ data class CoinItem(
     val lastUpdated: String? = null,
     @SerializedName("price_change_percentage_1h_in_currency")
     val priceChangePercentage1hInCurrency: Double = 0.0,
-)
+): Parcelable

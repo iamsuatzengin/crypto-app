@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
 import com.suatzengin.whataboutcrypto.databinding.FragmentHomeBinding
 import com.suatzengin.whataboutcrypto.presentation.MainActivity
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.CoinsRecyclerAdapter
@@ -49,8 +50,8 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerViews() {
         adapterCoins = CoinsRecyclerAdapter(onClickListener = object : OnClickListener {
-            override fun onItemClick(id: String) {
-                val action = HomeFragmentDirections.actionHomePageToDetailFragment(id)
+            override fun onItemClick(coin: CoinItem) {
+                val action = HomeFragmentDirections.actionHomePageToDetailFragment(coin)
                 findNavController().navigate(action)
             }
         })
