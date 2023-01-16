@@ -19,65 +19,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/layout_for_buttons"
+        <RadioGroup
+            android:id="@+id/radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checkedButton="@id/radio_button_7"
+            android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lineChart">
 
-            <Button
-                android:id="@+id/one_day"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <RadioButton
+                android:id="@+id/radio_button_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="1" />
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/one_day" />
 
-            <Button
-                android:id="@+id/seven_day"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <RadioButton
+                android:id="@+id/radio_button_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="7" />
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/seven_day" />
 
-            <Button
-                android:id="@+id/fourteen_day"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <RadioButton
+                android:id="@+id/radio_button_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="14" />
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/fourteen_day" />
 
-            <Button
-                android:id="@+id/thirty_day"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <RadioButton
+                android:id="@+id/radio_button_30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="30" />
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/thirty_day" />
 
-            <Button
-                android:id="@+id/sixty_day"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <RadioButton
+                android:id="@+id/radio_button_60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="60" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="deneme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_for_buttons" />
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/sixty_day" />
+        </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

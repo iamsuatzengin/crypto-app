@@ -46,6 +46,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerViews()
         observeData()
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getCoins()
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun setupRecyclerViews() {
@@ -69,7 +73,7 @@ class HomeFragment : Fragment() {
                 launch {
                     viewModel.eventFlow.collect { event ->
                         when (event) {
-                            is UiEvent.ShowSnackbar -> {
+                            is UiEvent.ShowMessage -> {
                                 Snackbar.make(
                                     requireContext(),
                                     binding.layoutId,
@@ -83,7 +87,6 @@ class HomeFragment : Fragment() {
 
                 launch {
                     viewModel.state.collect { state ->
-
                         adapterCoins.submitList(state.coinList)
                         adapterTrending.submitList(state.trendingCoinList)
                         state.isLoading.let {

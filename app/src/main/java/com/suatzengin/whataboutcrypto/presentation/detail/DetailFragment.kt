@@ -50,7 +50,7 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAllData(args.coin.id)
         observeData()
-        buttonClickListener()
+        selectTimeSpan()
     }
 
     private fun observeData() {
@@ -59,21 +59,24 @@ class DetailFragment : Fragment() {
                 viewModel.state.collectLatest { state ->
                     val chartData = getData(state.priceList)
                     displayLineChart(chartData)
-                    binding.text.text = state.timeRange.value.toString()
-
                 }
             }
         }
     }
 
-    private fun buttonClickListener(id: String = args.coin.id) {
-        binding.oneDay.setOnClickListener { viewModel.setCoinChartTimeSpan(1, id) }
-        binding.sevenDay.setOnClickListener { viewModel.setCoinChartTimeSpan(7, id) }
-        binding.fourteenDay.setOnClickListener { viewModel.setCoinChartTimeSpan(14, id) }
-        binding.thirtyDay.setOnClickListener { viewModel.setCoinChartTimeSpan(30, id) }
-        binding.sixtyDay.setOnClickListener { viewModel.setCoinChartTimeSpan(60, id) }
+    private fun selectTimeSpan(id: String = args.coin.id){
+        with(binding){
+            radioGroup.setOnCheckedChangeListener { radioGroup, checkedId ->
+                when(checkedId){
+                    radioButton1.id -> viewModel.setCoinChartTimeSpan(1, id)
+                    radioButton7.id -> viewModel.setCoinChartTimeSpan(7, id)
+                    radioButton14.id -> viewModel.setCoinChartTimeSpan(14, id)
+                    radioButton30.id -> viewModel.setCoinChartTimeSpan(30, id)
+                    radioButton60.id -> viewModel.setCoinChartTimeSpan(60, id)
+                }
+            }
+        }
     }
-
     private fun displayLineChart(chartData: Pair<List<String>, List<Entry>>) {
         binding.lineChart.apply {
             val lineDataSet = LineDataSet(chartData.second, "Value")

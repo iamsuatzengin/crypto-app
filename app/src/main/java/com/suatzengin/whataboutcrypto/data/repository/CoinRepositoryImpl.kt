@@ -14,12 +14,10 @@ class CoinRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : CoinRepository {
 
-    override fun getCoins() = flow {
-        emit(apiService.getCoinList())
-    }
-    override fun getTrendingCoins() = flow{
-        emit(apiService.getTrendingCoins().coins)
-    }
+    override suspend fun getCoins() = apiService.getCoinList()
+
+    override suspend fun getTrendingCoins() = apiService.getTrendingCoins().coins
+
 
     override fun getMarketChart(id: String, day: Int): Flow<Resource<CoinMarketChart>> = flow {
         emit(Resource.Loading())

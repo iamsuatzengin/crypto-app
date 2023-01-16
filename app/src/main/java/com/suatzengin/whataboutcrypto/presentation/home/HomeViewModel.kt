@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.suatzengin.whataboutcrypto.domain.repository.CoinRepository
 import com.suatzengin.whataboutcrypto.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -23,44 +24,26 @@ class HomeViewModel @Inject constructor(
     val eventFlow = _eventChannel.receiveAsFlow()
 
     init {
-        _state.update { it.copy(isLoading = true) }
-        getCoinList()
-        getTrendingCoins()
+        getCoins()
     }
 
-    private fun getCoinList(){
+    fun getCoins(){
         viewModelScope.launch {
             try {
-                repository.getCoins().collect{ list ->
-                    _state.update {
-                        it.copy(coinList = list, isLoading = false)
-                    }
+                println("get coins içi")
+                _state.update { it.copy(isLoading = true) }
+                val coinsDeferred = async { repository.getCoins() }
+                val trendingCoinsDeferred = async { repository.getTrendingCoins() }
+
+                val coins = coinsDeferred.await()
+                val trending = trendingCoinsDeferred.await()
+                _state.update {
+                    it.copy(coinList = coins, trendingCoinList = trending)
                 }
             }catch (e: Exception){
-                _eventChannel.send(
-                    UiEvent.ShowSnackbar(
-                        message = e.localizedMessage ?: "Unknown exception!"
-                    )
-                )
+                _eventChannel.send(UiEvent.ShowMessage(e.localizedMessage ?: "Exception"))
             }
         }
     }
 
-    private fun getTrendingCoins(){
-        viewModelScope.launch {
-            try {
-                repository.getTrendingCoins().collect{ list ->
-                    _state.update {
-                        it.copy(trendingCoinList = list, isLoading = false)
-                    }
-                }
-            }catch (e: Exception){
-                _eventChannel.send(
-                    UiEvent.ShowSnackbar(
-                        message = e.localizedMessage ?: "Unknown exception!"
-                    )
-                )
-            }
-        }
-    }
 }

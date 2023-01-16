@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 interface CoinRepository {
 
     fun getMarketList(): Flow<Resource<List<Exchange>>>
-    fun getCoins(): Flow<List<CoinItem>>
-    fun getTrendingCoins(): Flow<List<TrendingCoin>>
+    suspend fun getCoins(): List<CoinItem>
+    suspend fun getTrendingCoins(): List<TrendingCoin>
 
     fun getMarketChart(id: String, day: Int): Flow<Resource<CoinMarketChart>>
 }

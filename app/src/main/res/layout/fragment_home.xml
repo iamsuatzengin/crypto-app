@@ -1,75 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/swipe_refresh"
+    android:orientation="vertical"
     android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/layoutId"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            app:indicatorColor="#9FA8DA"
-            app:trackThickness="20dp" />
-
-        <TextView
-            android:id="@+id/trendingDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:padding="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/description_bg"
-            android:text="@string/trending_description_string" />
-
-        <FrameLayout
-            android:id="@+id/trendingLayout"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/trendingDescription"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTrendingCoins"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:itemCount="2" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tvRankings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/trendingLayout"
-            android:text="@string/rankings"
-            android:visibility="gone"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            style="@style/TextAppearance.Material3.TitleLarge"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCoinList"
+        <RelativeLayout
+            android:id="@+id/layoutId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tvRankings"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_margin="8dp">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                app:indicatorColor="#9FA8DA"
+                app:trackThickness="20dp" />
+
+            <TextView
+                android:id="@+id/trendingDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:padding="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/description_bg"
+                android:text="@string/trending_description_string" />
+
+            <FrameLayout
+                android:id="@+id/trendingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/trendingDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTrendingCoins"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="2" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvRankings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/trendingLayout"
+                android:text="@string/rankings"
+                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                style="@style/TextAppearance.Material3.TitleLarge"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCoinList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tvRankings"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <!--
