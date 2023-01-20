@@ -3,11 +3,16 @@ buildscript {
         retrofit_version = '2.9.0'
         coil_version = '2.2.2'
         paging_version = '3.1.1'
+        kotlin_version = '1.8.0'
 
     }
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         def nav_version = "2.5.3"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+    }
+    repositories {
+        mavenCentral()
     }
 }
 

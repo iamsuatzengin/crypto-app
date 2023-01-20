@@ -1,5 +1,6 @@
 package com.suatzengin.whataboutcrypto.data.remote
 
+import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinDetail
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinMarketChart
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.Trending
@@ -30,4 +31,9 @@ interface ApiService {
         @Query("days") days: Int = 7,
         @Query("interval") interval: String = "daily"
     ): CoinMarketChart
+
+    @GET(Constants.COIN_DETAIL)
+    suspend fun getCoinDetail(
+        @Path("id") id: String
+    ): CoinDetail
 }

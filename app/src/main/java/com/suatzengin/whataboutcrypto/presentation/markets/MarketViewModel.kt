@@ -34,7 +34,9 @@ class MarketViewModel @Inject constructor(
                         it.copy(list = emptyList(), isLoading = true)
                     }
                 }
-                is Resource.Error -> {}
+                is Resource.Error -> {
+                    _state.update { it.copy(message = result.message ?: "Error!") }
+                }
             }
         }.launchIn(viewModelScope)
     }

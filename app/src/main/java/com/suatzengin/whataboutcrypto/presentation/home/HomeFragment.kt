@@ -18,7 +18,6 @@ import com.suatzengin.whataboutcrypto.presentation.MainActivity
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.CoinsRecyclerAdapter
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.TrendingCoinsAdapter
 import com.suatzengin.whataboutcrypto.util.OnClickListener
-import com.suatzengin.whataboutcrypto.util.UiEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +47,7 @@ class HomeFragment : Fragment() {
         observeData()
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getCoins()
+            viewModel.getTrendingCoins()
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -55,7 +55,10 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerViews() {
         adapterCoins = CoinsRecyclerAdapter(onClickListener = object : OnClickListener {
             override fun onItemClick(coin: CoinItem) {
-                val action = HomeFragmentDirections.actionHomePageToDetailFragment(coin)
+                val action = HomeFragmentDirections.actionHomePageToDetailFragment(
+                    coin.priceChangePercentage24h.toFloat(),
+                    coin.id
+                )
                 findNavController().navigate(action)
             }
         })
@@ -71,27 +74,20 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.eventFlow.collect { event ->
-                        when (event) {
-                            is UiEvent.ShowMessage -> {
-                                Snackbar.make(
-                                    requireContext(),
-                                    binding.layoutId,
-                                    event.message,
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    }
-                }
-
-                launch {
                     viewModel.state.collect { state ->
                         adapterCoins.submitList(state.coinList)
                         adapterTrending.submitList(state.trendingCoinList)
                         state.isLoading.let {
                             if (it) binding.progressBar.visibility = View.VISIBLE
                             else binding.progressBar.visibility = View.GONE
+                        }
+                        if (state.message.isNotEmpty()) {
+                            Snackbar.make(
+                                requireContext(),
+                                binding.layoutId,
+                                state.message,
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }

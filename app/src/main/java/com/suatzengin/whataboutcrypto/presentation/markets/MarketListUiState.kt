@@ -4,5 +4,6 @@ import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
 
 data class MarketListUiState(
     val list: List<Exchange> = emptyList(),
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val message: String = ""
 )

@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.AxisBase
@@ -33,7 +34,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    val args: DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
     private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreateView(
@@ -48,9 +49,14 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAllData(args.coin.id)
+        viewModel.getAllData(args.coinId)
         observeData()
         selectTimeSpan()
+        viewModel.getCoinDetail(args.coinId)
+
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun observeData() {
@@ -59,14 +65,15 @@ class DetailFragment : Fragment() {
                 viewModel.state.collectLatest { state ->
                     val chartData = getData(state.priceList)
                     displayLineChart(chartData)
+                    binding.coin = state.coinDetail
                 }
             }
         }
     }
 
-    private fun selectTimeSpan(id: String = args.coin.id){
+    private fun selectTimeSpan(id: String = args.coinId){
         with(binding){
-            radioGroup.setOnCheckedChangeListener { radioGroup, checkedId ->
+            radioGroup.setOnCheckedChangeListener { _, checkedId ->
                 when(checkedId){
                     radioButton1.id -> viewModel.setCoinChartTimeSpan(1, id)
                     radioButton7.id -> viewModel.setCoinChartTimeSpan(7, id)
@@ -108,7 +115,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun lineFillDrawable(): Drawable? {
-        return if (args.coin.priceChangePercentage24h > 0) {
+        return if (args.priceChangePercentage24h > 0) {
             ContextCompat.getDrawable(requireContext(), R.drawable.chart_bg_increase)
         } else {
             ContextCompat.getDrawable(requireContext(), R.drawable.chart_bg_decrease)

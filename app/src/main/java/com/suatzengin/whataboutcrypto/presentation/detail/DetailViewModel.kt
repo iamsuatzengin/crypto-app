@@ -35,6 +35,19 @@ class DetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    fun getCoinDetail(id: String){
+        repository.getCoinDetail(id).onEach { result ->
+            when(result){
+                is Resource.Success -> {
+                    _state.update {
+                        it.copy(coinDetail = result.data)
+                    }
+                }
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
+        }.launchIn(viewModelScope)
+    }
     fun setCoinChartTimeSpan(time: Int, id: String) {
         when (time) {
             1 -> _state.update { it.copy(timeRange = CoinChartTimeSpan.TIMESPAN_1DAYS) }

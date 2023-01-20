@@ -24,5 +24,9 @@
     <string name="fourteen_day">14</string>
     <string name="thirty_day">30</string>
     <string name="sixty_day">60</string>
+    <string name="current_price">Current Price</string>
+    <string name="price_high_24h">Price High 24h</string>
+    <string name="price_low_24h">Price Low 24h</string>
+    <string name="description">Description</string>
 
 </resources>

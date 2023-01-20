@@ -34,7 +34,10 @@
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
-            android:name="coin"
-            app:argType="com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem" />
+            android:name="priceChangePercentage24h"
+            app:argType="float" />
+        <argument
+            android:name="coinId"
+            app:argType="string" />
     </fragment>
 </navigation>
