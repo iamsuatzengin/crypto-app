@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/coinImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/icon_dimens"
+        android:layout_height="@dimen/icon_dimens"
         android:background="@drawable/rounded_background"
         android:contentDescription="@string/crypto_icon"
         app:layout_constraintStart_toStartOf="parent"

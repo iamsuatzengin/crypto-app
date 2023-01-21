@@ -12,4 +12,6 @@ object Constants {
     const val MARKET_CHARTS = "coins/{id}/market_chart"
 
     const val COIN_DETAIL = "coins/{id}"
+
+    const val SEARCH = "search"
 }

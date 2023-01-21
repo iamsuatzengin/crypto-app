@@ -5,6 +5,7 @@ import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinMarketChart
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.Trending
 import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
+import com.suatzengin.whataboutcrypto.data.remote.dto.search.Search
 import com.suatzengin.whataboutcrypto.util.Constants
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -36,4 +37,9 @@ interface ApiService {
     suspend fun getCoinDetail(
         @Path("id") id: String
     ): CoinDetail
+
+    @GET(Constants.SEARCH)
+    suspend fun search(
+        @Query("query") query: String
+    ): Search
 }

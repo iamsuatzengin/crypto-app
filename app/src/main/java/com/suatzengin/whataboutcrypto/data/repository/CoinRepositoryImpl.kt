@@ -4,6 +4,7 @@ import com.suatzengin.whataboutcrypto.data.remote.ApiService
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinDetail
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinMarketChart
 import com.suatzengin.whataboutcrypto.data.remote.dto.markets.Exchange
+import com.suatzengin.whataboutcrypto.data.remote.dto.search.Search
 import com.suatzengin.whataboutcrypto.domain.repository.CoinRepository
 import com.suatzengin.whataboutcrypto.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -56,7 +57,6 @@ class CoinRepositoryImpl @Inject constructor(
 
     override fun getMarketList(): Flow<Resource<List<Exchange>>> = flow {
         emit(Resource.Loading())
-        //delay(1000)
         try {
             val marketList = apiService.getMarketList()
             emit(Resource.Success(marketList))
@@ -65,5 +65,16 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun search(query: String): Flow<Resource<Search>> {
+        return flow {
+            try {
+                emit(Resource.Loading())
+                val searchQuery = apiService.search(query = query)
+                emit(Resource.Success(searchQuery))
+            } catch (e: Exception) {
+                emit(Resource.Error(message = e.localizedMessage ?: "An error occurred!"))
+            }
+        }
+    }
 }
 

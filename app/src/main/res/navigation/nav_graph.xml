@@ -40,4 +40,10 @@
             android:name="coinId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/search_page"
+        android:name="com.suatzengin.whataboutcrypto.presentation.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+    </fragment>
 </navigation>
