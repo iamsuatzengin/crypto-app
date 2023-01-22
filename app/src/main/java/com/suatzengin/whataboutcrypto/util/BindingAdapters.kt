@@ -16,5 +16,5 @@ fun loadCoinIcon(imageView: ImageView, url: String?) {
 
 @BindingAdapter("android:myText")
 fun setText(textView: TextView, price: Double){
-    textView.text = price.toString().addPrefix("$")
+    textView.text = price.toString().addSuffix("$")
 }

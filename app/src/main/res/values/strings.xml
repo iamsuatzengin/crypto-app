@@ -28,5 +28,6 @@
     <string name="price_high_24h">Price High 24h</string>
     <string name="price_low_24h">Price Low 24h</string>
     <string name="description">Description</string>
+    <string name="empty_search_message">You have not searched yet!</string>
 
 </resources>
