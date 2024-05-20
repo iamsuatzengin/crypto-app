@@ -17,7 +17,6 @@ import com.suatzengin.whataboutcrypto.databinding.FragmentHomeBinding
 import com.suatzengin.whataboutcrypto.presentation.MainActivity
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.CoinsRecyclerAdapter
 import com.suatzengin.whataboutcrypto.presentation.home.adapters.TrendingCoinsAdapter
-import com.suatzengin.whataboutcrypto.util.OnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,63 +37,73 @@ class HomeFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.hide()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        viewModel.getCoinsAndTrending()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerViews()
-        observeData()
+
+        collectData()
+
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getCoins()
-            viewModel.getTrendingCoins()
+            viewModel.getCoinsAndTrending()
+
             binding.swipeRefresh.isRefreshing = false
         }
     }
 
     private fun setupRecyclerViews() {
-        adapterCoins = CoinsRecyclerAdapter(onClickListener = object : OnClickListener {
-            override fun onItemClick(coin: CoinItem) {
-                val action = HomeFragmentDirections.actionHomePageToDetailFragment(
-                    coin.priceChangePercentage24h.toFloat(),
-                    coin.id
-                )
-                findNavController().navigate(action)
-            }
-        })
+        adapterCoins = CoinsRecyclerAdapter(onItemClick = ::onCoinItemClick)
+
         adapterTrending = TrendingCoinsAdapter()
+
         binding.rvCoinList.adapter = adapterCoins
+
         val rvTrending = binding.rvTrendingCoins
+
         rvTrending.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         rvTrending.adapter = adapterTrending
     }
 
-    private fun observeData() {
+    private fun collectData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.state.collect { state ->
-                        adapterCoins.submitList(state.coinList)
-                        adapterTrending.submitList(state.trendingCoinList)
-                        state.isLoading.let {
-                            if (it) binding.progressBar.visibility = View.VISIBLE
-                            else binding.progressBar.visibility = View.GONE
-                        }
-                        if (state.message.isNotEmpty()) {
-                            Snackbar.make(
-                                requireContext(),
-                                binding.layoutId,
-                                state.message,
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
+                viewModel.state.collect { state ->
+                    adapterCoins.submitList(state.coinList)
+
+                    adapterTrending.submitList(state.trendingCoinList)
+
+                    state.isLoading.let {
+                        if (it) binding.progressBar.visibility = View.VISIBLE
+                        else binding.progressBar.visibility = View.GONE
+                    }
+
+                    if (state.message.isNotEmpty()) {
+                        Snackbar.make(
+                            requireContext(),
+                            binding.layoutId,
+                            state.message,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
         }
     }
 
+    private fun onCoinItemClick(coin: CoinItem) {
+        val action = HomeFragmentDirections.actionHomePageToDetailFragment(
+            coin.priceChangePercentage24h.toFloat(),
+            coin.id
+        )
+
+        findNavController().navigate(action)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

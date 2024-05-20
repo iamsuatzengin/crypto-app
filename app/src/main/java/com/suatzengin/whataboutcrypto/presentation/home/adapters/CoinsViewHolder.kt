@@ -9,19 +9,18 @@ import coil.transform.CircleCropTransformation
 import com.suatzengin.whataboutcrypto.R
 import com.suatzengin.whataboutcrypto.data.remote.dto.coins.CoinItem
 import com.suatzengin.whataboutcrypto.databinding.CoinListItemBinding
-import com.suatzengin.whataboutcrypto.util.OnClickListener
 import com.suatzengin.whataboutcrypto.util.addPrefix
 import com.suatzengin.whataboutcrypto.util.addSuffix
-import java.util.*
+import java.util.Locale
 
 class CoinsViewHolder(
     private val binding: CoinListItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: CoinItem, onClickListener: OnClickListener) {
+    fun bind(item: CoinItem, onItemClick: (CoinItem) -> Unit) {
 
         binding.apply {
             itemLayoutId.setOnClickListener{
-                onClickListener.onItemClick(item)
+                onItemClick(item)
             }
 
             coinImage.load(item.image) {
@@ -30,20 +29,16 @@ class CoinsViewHolder(
             }
 
             tvCoinName.text = item.name
+
             tvCoinSymbol.text = item.symbol.uppercase(Locale.ROOT)
+
             tvCoinPrice.text = item.currentPrice.toString().addPrefix("$") //custom string extensions
+
             tvPercentage.text = item.priceChangePercentage24h.toString().addSuffix("%")
-        }
-        if (item.priceChangePercentage24h > 0) {
-            binding.tvPercentage.setTextColor(
-                Color.parseColor("#50C878")
-            )
-            binding.itemLayoutId.setBackgroundResource(R.drawable.coins_item_bg_increase)
-        } else {
-            binding.tvPercentage.setTextColor(
-                Color.parseColor("#FF5733")
-            )
-            binding.itemLayoutId.setBackgroundResource(R.drawable.coins_item_bg_decrease)
+
+            tvPercentage.setTextColor(item.color)
+
+            itemLayoutId.setBackgroundResource(item.background)
         }
     }
 
@@ -56,3 +51,17 @@ class CoinsViewHolder(
         }
     }
 }
+
+val CoinItem.color: Int
+    get() = if(priceChangePercentage24h > 0) {
+        Color.parseColor("#50C878")
+    } else {
+        Color.parseColor("#FF5733")
+    }
+
+val CoinItem.background: Int
+    get() = if(priceChangePercentage24h > 0) {
+        R.drawable.coins_item_bg_increase
+    } else {
+        R.drawable.coins_item_bg_decrease
+    }
